@@ -57,6 +57,7 @@
 
 /* External variables --------------------------------------------------------*/
 extern HCD_HandleTypeDef hhcd_USB_OTG_FS;
+extern UART_HandleTypeDef huart2;
 /* USER CODE BEGIN EV */
 
 /* USER CODE END EV */
@@ -198,6 +199,32 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
+
+/**
+  * @brief This function handles USART2 global interrupt.
+  */
+void USART2_IRQHandler(void)
+{
+  /* USER CODE BEGIN USART2_IRQn 0 */
+  if (huart2.Instance->SR & UART_FLAG_IDLE) { 
+    /* Clear IDLE flag by reading status register first */
+    /* And follow by reading data register */
+    volatile uint32_t tmp;                  /* Must be volatile to prevent optimizations */
+    tmp = huart2.Instance->SR;              /* Read status register */
+    tmp = huart2.Instance->DR;              /* Read data register */
+    (void)tmp;                              /* Prevent compiler warnings */
+    uart2_idleHandler();
+
+  } else {
+    uart2_handler();
+  }
+  return;
+  /* USER CODE END USART2_IRQn 0 */
+  HAL_UART_IRQHandler(&huart2);
+  /* USER CODE BEGIN USART2_IRQn 1 */
+  /* USER CODE END USART2_IRQn 1 */
+}
+
 
 /**
   * @brief This function handles USB On The Go FS global interrupt.

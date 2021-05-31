@@ -112,6 +112,9 @@ int main(void)
     MX_USB_HOST_Process();
 
     /* USER CODE BEGIN 3 */
+    HAL_GPIO_TogglePin(LD6_GPIO_Port, LD6_Pin); // toggle the blue led as heartbeat
+    HAL_Delay(500);
+
   }
   /* USER CODE END 3 */
 }

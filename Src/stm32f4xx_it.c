@@ -210,9 +210,9 @@ void USART2_IRQHandler(void)
     __HAL_UART_CLEAR_IDLEFLAG(&huart2); // taken from https://electronics.stackexchange.com/questions/471272/setting-up-stm32-timer-for-uart-idle-detection#comment1353999_480556
     uart2_idleHandler();
   } else {
-    uart2_handler();
+    uart2_dataHandler();
   }
-  return;
+  return; 
   /* USER CODE END USART2_IRQn 0 */
   HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */

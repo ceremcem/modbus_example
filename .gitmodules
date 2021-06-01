@@ -1,3 +1,6 @@
 [submodule "mcu-debug"]
 	path = mcu-debug
 	url = https://github.com/aktos-io/mcu-debug
+[submodule "modbus_lib"]
+	path = modbus_lib
+	url = ./modbus_lib/

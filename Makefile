@@ -13,7 +13,7 @@
 ######################################
 # mcu-debug configuration 
 ######################################
-App 							:= Core/Src
+App 								:= Src/* modbus_lib
 ELF_FILE						:= build/modbus_example.elf
 GCC_PATH 						:= $(HOME)/embedded/gcc/gcc-arm-none-eabi-10-2020-q4-major/bin
 FLASHER							:= stlink
@@ -46,6 +46,7 @@ BUILD_DIR = build
 ######################################
 # C sources
 C_SOURCES =  \
+modbus_lib/modbus_lib.c \
 Src/main.c \
 Src/usb_host.c \
 Src/usbh_conf.c \
@@ -143,7 +144,8 @@ C_INCLUDES =  \
 -IMiddlewares/ST/STM32_USB_Host_Library/Core/Inc \
 -IMiddlewares/ST/STM32_USB_Host_Library/Class/CDC/Inc \
 -IDrivers/CMSIS/Device/ST/STM32F4xx/Include \
--IDrivers/CMSIS/Include
+-IDrivers/CMSIS/Include \
+-Imodbus_lib
 
 
 # compile gcc flags

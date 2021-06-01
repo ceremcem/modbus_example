@@ -23,6 +23,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "modbus_lib.h"
 
 /* USER CODE END Includes */
 
@@ -64,22 +65,17 @@ void MX_USB_HOST_Process(void);
 
 /* USER CODE BEGIN PFP */
 
-char my_uart_buffer[256];
-int my_uart_buffer_index = 0;
-
-
-void uart2_handler(void){
-  char buff; 
-  HAL_UART_Receive (&huart2, (uint8_t *)&buff, 1, 400);
-  my_uart_buffer[my_uart_buffer_index++] = buff;
-  HAL_UART_Transmit(&huart2,(uint8_t *)&buff, 1, 0xFFFF);   // echo back 
+//
+// modbus_lib requirements:
+//
+void uart2_dataHandler(void){
+  volatile char buff; 
+  HAL_UART_Receive (&huart2, (uint8_t *)&buff, 1, 400);  
+  modbus_lib_append_data(buff); 
 }
 
 void uart2_idleHandler(){
-  (void) 0; // debugger: p/c *my_uart_buffer@10
-  char i[1] = {"_"}; 
-  HAL_UART_Transmit(&huart2, (uint8_t *)i, 1, 0xFFFF);  // add "_" character at the end of response
-  my_uart_buffer_index = 0; 
+  modbus_lib_end_of_telegram(); 
 }
 
 /* USER CODE END PFP */
@@ -123,6 +119,12 @@ int main(void)
   MX_USB_HOST_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  ModbusConfig_t modbus_cfg = {
+    .address = 5
+  }; 
+
+  modbus_lib_init(&modbus_cfg);  
 
   /* USER CODE END 2 */
 

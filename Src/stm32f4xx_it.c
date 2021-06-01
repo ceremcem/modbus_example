@@ -206,15 +206,9 @@ void SysTick_Handler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
-  if (huart2.Instance->SR & UART_FLAG_IDLE) { 
-    /* Clear IDLE flag by reading status register first */
-    /* And follow by reading data register */
-    volatile uint32_t tmp;                  /* Must be volatile to prevent optimizations */
-    tmp = huart2.Instance->SR;              /* Read status register */
-    tmp = huart2.Instance->DR;              /* Read data register */
-    (void)tmp;                              /* Prevent compiler warnings */
+  if (__HAL_UART_GET_FLAG(&huart2, UART_FLAG_IDLE)) { 
+    __HAL_UART_CLEAR_IDLEFLAG(&huart2); // taken from https://electronics.stackexchange.com/questions/471272/setting-up-stm32-timer-for-uart-idle-detection#comment1353999_480556
     uart2_idleHandler();
-
   } else {
     uart2_handler();
   }

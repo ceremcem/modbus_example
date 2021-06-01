@@ -70,7 +70,7 @@ int my_uart_buffer_index = 0;
 
 void uart2_handler(void){
   char buff; 
-  HAL_UART_Receive (&huart2, (uint8_t *)&buff, 1, 200);
+  HAL_UART_Receive (&huart2, (uint8_t *)&buff, 1, 400);
   my_uart_buffer[my_uart_buffer_index++] = buff;
   HAL_UART_Transmit(&huart2,(uint8_t *)&buff, 1, 0xFFFF);   // echo back 
 }

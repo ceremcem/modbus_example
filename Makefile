@@ -13,7 +13,7 @@
 ######################################
 # mcu-debug configuration 
 ######################################
-App 								:= Src/* modbus_lib
+App 							:= Src/* modbus_lib
 ELF_FILE						:= build/modbus_example.elf
 GCC_PATH 						:= $(HOME)/embedded/gcc/gcc-arm-none-eabi-10-2020-q4-major/bin
 FLASHER							:= stlink
@@ -47,6 +47,7 @@ BUILD_DIR = build
 # C sources
 C_SOURCES =  \
 modbus_lib/modbus_lib.c \
+modbus_lib/modbus_crc.c \
 Src/main.c \
 Src/usb_host.c \
 Src/usbh_conf.c \

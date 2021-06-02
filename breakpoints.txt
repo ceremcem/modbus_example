@@ -2,9 +2,9 @@
 # For App: Src/* modbus_lib
 # --------------------------------------
 set breakpoint pending on
-break modbus_lib/modbus_lib.c:24
+break Src/main.c:82
 commands
 silent
-p/x *g_modbus_lib_received_telegram@g_modbus_lib_received_length
+printf "requested address: %d\n",la 
 continue
 end

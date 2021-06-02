@@ -78,6 +78,22 @@ void uart2_idleHandler(){
   modbus_lib_end_of_telegram(); 
 }
 
+uint16_t modbus_lib_read_handler(uint16_t la){ // la: logical_address
+    switch(la){ // debugger: printf "requested address: %d\n",la 
+      case 40001:
+        return 5; 
+      case 40002: 
+        return 6;
+      default:
+        return modbus_lib_send_error(MBUS_RESPONSE_ILLEGAL_DATA_ADDRESS); //// debugger 
+    }
+}
+
+int modbus_lib_transport_write(uint8_t* buffer, uint16_t length){
+    HAL_UART_Transmit(&huart2, buffer, length, 1000);
+    return 0; 
+}
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -121,7 +137,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   ModbusConfig_t modbus_cfg = {
-    .address = 5
+    .address = 1
   }; 
 
   modbus_lib_init(&modbus_cfg);  

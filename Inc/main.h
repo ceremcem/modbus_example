@@ -129,6 +129,9 @@ void Error_Handler(void);
 void uart2_dataHandler(void);
 void uart2_idleHandler(void);
 
+uint16_t modbus_lib_read_handler(uint16_t la);
+
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

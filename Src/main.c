@@ -89,6 +89,17 @@ uint16_t modbus_lib_read_handler(uint16_t la){ // la: logical_address
     }
 }
 
+uint16_t modbus_lib_write_handler(uint16_t la, uint16_t value){
+  switch(la){ // debugger: printf "requested address: %d\n",la  
+    case 40001: 
+      HAL_GPIO_TogglePin(LD6_GPIO_Port, LD5_Pin);
+      break; 
+    default:
+      return  modbus_lib_send_error(MBUS_RESPONSE_ILLEGAL_DATA_ADDRESS); 
+  }
+  return 0; // success
+}
+
 int modbus_lib_transport_write(uint8_t* buffer, uint16_t length){
     HAL_UART_Transmit(&huart2, buffer, length, 1000);
     return 0; 

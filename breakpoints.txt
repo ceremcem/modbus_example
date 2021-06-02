@@ -8,3 +8,15 @@ silent
 printf "requested address: %d\n",la 
 continue
 end
+break Src/main.c:93
+commands
+silent
+printf "requested address: %d\n",la  
+continue
+end
+break modbus_lib/modbus_lib.c:36
+commands
+silent
+p/x *g_modbus_lib_received_telegram@g_modbus_lib_received_length
+continue
+end

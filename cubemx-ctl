@@ -1,0 +1,79 @@
+#!/bin/bash
+set -eu -o pipefail
+safe_source () { [[ ! -z ${1:-} ]] && source $1; _dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"; _sdir=$(dirname "$(readlink -f "$0")"); }; safe_source
+# end of bash boilerplate
+
+
+CUBEMX_PATH="$HOME/embedded/STM32CubeMX/"
+
+
+show_help(){
+    cat <<HELP
+    $(basename $0) [options] my-cubemx-project.ioc
+    Options:
+        --no-gui    : Do not open GUI
+HELP
+}
+
+die(){
+    >&2 echo
+    >&2 echo "$@"
+    exit 1
+}
+
+help_die(){
+    >&2 echo
+    >&2 echo "$@"
+    show_help
+    exit 1
+}
+
+# Parse command line arguments
+# ---------------------------
+# Initialize parameters
+WANT_GUI=true
+# ---------------------------
+args_backup=("$@")
+args=()
+_count=1
+while [ $# -gt 0 ]; do
+    key="${1:-}"
+    case $key in
+        -h|-\?|--help|'')
+            show_help    # Display a usage synopsis.
+            exit
+            ;;
+        # --------------------------------------------------------
+        --no-gui)
+            WANT_GUI=false
+            ;;
+        # --------------------------------------------------------
+        -*) # Handle unrecognized options
+            help_die "Unknown option: $1"
+            ;;
+        *)  # Generate the new positional arguments: $arg1, $arg2, ... and ${args[@]}
+            if [[ ! -z ${1:-} ]]; then
+                declare arg$((_count++))="$1"
+                args+=("$1")
+            fi
+            ;;
+    esac
+    [[ -z ${1:-} ]] && break || shift
+done; set -- "${args_backup[@]-}"
+# Use $arg1 in place of $1, $arg2 in place of $2 and so on, 
+# "$@" is in the original state,
+# use ${args[@]} for new positional arguments  
+
+$WANT_GUI && flag="-s" || flag="-q"
+
+config_file="${arg1:-}"
+
+[[ -z $config_file ]] && die "Config file is required."
+
+tmpfile=$(mktemp)
+trap "rm $tmpfile" exit
+
+set +x
+echo "config load $(realpath $config_file)" > $tmpfile
+
+java -jar $CUBEMX_PATH/STM32CubeMX $flag $tmpfile

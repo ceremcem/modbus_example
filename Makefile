@@ -13,8 +13,10 @@
 ######################################
 # mcu-debug configuration 
 ######################################
-App 							:= Src/* modbus_lib
+MCU_DEBUG_MAJOR 				:= 2
+App 							:= Src/* modbus_lib/*
 ELF_FILE						:= build/modbus_example.elf
+BIN_FILE 						:= build/modbus_example.bin
 GCC_PATH 						:= $(HOME)/embedded/gcc/gcc-arm-none-eabi-10-2020-q4-major/bin
 FLASHER							:= stlink
 include ./mcu-debug/main.mk

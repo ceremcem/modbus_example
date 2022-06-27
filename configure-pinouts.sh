@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./cubemx-ctl ./modbus_example.ioc
+./mcu-debug/cubemx-ctl ./modbus_example.ioc

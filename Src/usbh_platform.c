@@ -51,4 +51,3 @@ void MX_DriverVbusFS(uint8_t state)
   HAL_GPIO_WritePin(GPIOC,GPIO_PIN_0,(GPIO_PinState)data);
 }
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

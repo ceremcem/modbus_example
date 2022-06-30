@@ -139,5 +139,3 @@ uint16_t modbus_lib_read_handler(uint16_t la);
 #endif
 
 #endif /* __MAIN_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

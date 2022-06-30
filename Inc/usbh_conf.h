@@ -193,4 +193,3 @@
 
 #endif /* __USBH_CONF__H__ */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

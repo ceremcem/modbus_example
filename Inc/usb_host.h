@@ -91,4 +91,3 @@ void MX_USB_HOST_Process(void);
 
 #endif /* __USB_HOST__H__ */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

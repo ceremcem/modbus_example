@@ -26,3 +26,16 @@ Debug:
 make cmd-debugger
 ```
 
+# Testing
+
+1. Expect the blue led toggling
+2. 
+    Do: 
+        Write any data to register 40001
+
+    Expect:
+        1. To see the Modbus telegram dump in the debugger window
+        2. To see the Red led toggling.
+
+
+

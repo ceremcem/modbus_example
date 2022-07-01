@@ -92,7 +92,7 @@ uint16_t modbus_lib_read_handler(uint16_t la){ // la: logical_address
 uint16_t modbus_lib_write_handler(uint16_t la, uint16_t value){
   switch(la){ // debugger: printf "requested address: %d\n",la  
     case 40001: 
-      HAL_GPIO_TogglePin(LD6_GPIO_Port, LD5_Pin);
+      HAL_GPIO_TogglePin(LD5_GPIO_Port, LD5_Pin); // red led 
       break; 
     default:
       return  modbus_lib_send_error(MBUS_RESPONSE_ILLEGAL_DATA_ADDRESS); 
